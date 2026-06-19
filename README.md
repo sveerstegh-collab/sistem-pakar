@@ -1,26 +1,16 @@
-# Sistem Pakar - Rekomendasi OS untuk Mahasiswa
+# React + Vite
 
-Aplikasi sistem pakar berbasis web untuk merekomendasikan sistem operasi (OS) yang paling cocok untuk mahasiswa berdasarkan spesifikasi laptop dan kebutuhan pengguna.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Kriteria
+Currently, two official plugins are available:
 
-- RAM (2 GB, 4 GB, 8 GB, 16 GB)
-- Storage (HDD / SSD)
-- Processor (Lama / Menengah / Baru)
-- Kebutuhan utama (Office, browsing, coding, desain, gaming)
-- Jurusan (Umum, IT, Desain, Teknik, Bisnis)
-- Kemampuan pengguna (Pemula / Terbiasa Linux / Expert)
-- Prioritas (Ringan, mudah dipakai, aman, kompatibel software)
-- Budget/Lisensi (Gratis / Berbayar / Sudah punya lisensi Windows)
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Tech Stack
+## React Compiler
 
-- React (Vite)
-- Node.js
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Setup
+## Expanding the ESLint configuration
 
-```bash
-npm install
-npm run dev
-```
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

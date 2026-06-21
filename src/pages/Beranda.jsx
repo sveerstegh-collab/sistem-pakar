@@ -85,9 +85,9 @@ export default function Beranda() {
         <h2 className="text-center text-white/30 text-xs font-semibold uppercase tracking-widest mb-10">
           Cara Kerja
         </h2>
-        <div className="grid sm:grid-cols-3 gap-5">
+        <div className="grid w-full max-w-4xl mx-auto sm:grid-cols-3 gap-5">
           {steps.map((s, i) => (
-            <div key={i} className="glass rounded-2xl p-6 animate-fade-up" style={{ animationDelay: `${i * 0.1 + 0.1}s` }}>
+            <div key={i} className="glass rounded-2xl p-6 text-center animate-fade-up" style={{ animationDelay: `${i * 0.1 + 0.1}s` }}>
               <span className="text-purple-500/40 text-4xl font-black">{s.num}</span>
               <h3 className="text-white font-semibold text-[15px] mt-3 mb-1.5">{s.title}</h3>
               <p className="text-white/40 text-[13px] leading-relaxed">{s.desc}</p>
@@ -105,10 +105,10 @@ export default function Beranda() {
           {features.map((f, i) => (
             <div
               key={i}
-              className="glass-light rounded-xl p-5 hover:bg-white/[0.06] transition-colors duration-300 group animate-fade-up"
+              className="glass-light rounded-xl p-5 text-center hover:bg-white/[0.06] transition-colors duration-300 group animate-fade-up"
               style={{ animationDelay: `${i * 0.08 + 0.1}s` }}
             >
-              <div className="w-9 h-9 rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 flex items-center justify-center mb-3 transition-colors">
+              <div className="w-9 h-9 rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 flex items-center justify-center mx-auto mb-3 transition-colors">
                 <f.icon className="w-4 h-4 text-purple-400" />
               </div>
               <h3 className="text-white font-semibold text-[13px] mb-1">{f.title}</h3>

@@ -52,31 +52,34 @@ export default function Layout({ children }) {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 glass border-b transition-colors duration-300" style={{ borderColor: 'var(--glass-border)', height: '80px' }}>
-        <div className="max-w-5xl mx-auto px-5 sm:px-8 h-full flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-4 group">
-            <div className="w-11 h-11 rounded-lg bg-purple-500/15 flex items-center justify-center group-hover:bg-purple-500/25 transition-colors">
-              <Monitor className="w-6 h-6 text-purple-400" />
+      <nav className="sticky top-0 z-50 glass border-b transition-colors duration-300" style={{ borderColor: 'var(--glass-border)' }}>
+        <div className="max-w-5xl mx-auto px-3 sm:px-8 h-14 sm:h-16 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
+            <div className="w-8 sm:w-9 h-8 sm:h-9 rounded-lg bg-purple-500/15 flex items-center justify-center group-hover:bg-purple-500/25 transition-colors">
+              <Monitor className="w-4 sm:w-5 h-4 sm:h-5 text-purple-400" />
             </div>
-            <span className="font-bold tracking-tight" style={{ color: 'var(--text-primary)', fontSize: '22px' }}>
+            <span className="font-bold tracking-tight hidden sm:inline" style={{ color: 'var(--text-primary)', fontSize: '17px' }}>
               SistemPakar<span className="text-purple-400">OS</span>
             </span>
+            <span className="font-bold tracking-tight sm:hidden" style={{ color: 'var(--text-primary)', fontSize: '13px' }}>
+              SP<span className="text-purple-400">OS</span>
+            </span>
           </Link>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5 sm:gap-1">
             {navItems.map(item => {
               const active = location.pathname === item.to;
               return (
                 <Link
                   key={item.to}
                   to={item.to}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all duration-200 ${
+                  className={`flex items-center gap-1 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg font-medium transition-all duration-200 ${
                     active
                       ? 'bg-purple-500/20 text-purple-300 shadow-sm shadow-purple-500/10'
                       : ''
                   }`}
                   style={{
                     color: active ? undefined : 'var(--text-tertiary)',
-                    fontSize: '18px',
+                    fontSize: 'clamp(12px, 2vw, 15px)',
                   }}
                   onMouseEnter={(e) => {
                     if (!active) e.currentTarget.style.color = 'var(--text-secondary)';
@@ -84,22 +87,23 @@ export default function Layout({ children }) {
                   onMouseLeave={(e) => {
                     if (!active) e.currentTarget.style.color = 'var(--text-tertiary)';
                   }}
+                  title={item.label}
                 >
-                  <item.icon className="w-5 h-5" />
+                  <item.icon className="w-4 sm:w-4.5 h-4 sm:h-4.5" />
                   <span className="hidden sm:inline">{item.label}</span>
                 </Link>
               );
             })}
             <button
               onClick={toggleTheme}
-              className="flex items-center justify-center w-11 h-11 rounded-lg ml-3 transition-all duration-200 glass-light hover:bg-white/[0.08]"
+              className="flex items-center justify-center w-8 sm:w-9 h-8 sm:h-9 rounded-lg ml-1 sm:ml-2 transition-all duration-200 glass-light hover:bg-white/[0.08]"
               title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
-                <Sun className="w-5 h-5 text-amber-400" />
+                <Sun className="w-4 sm:w-5 h-4 sm:h-5 text-amber-400" />
               ) : (
-                <Moon className="w-5 h-5 text-slate-600" />
+                <Moon className="w-4 sm:w-5 h-4 sm:h-5 text-slate-600" />
               )}
             </button>
           </div>
@@ -110,8 +114,8 @@ export default function Layout({ children }) {
       <main className="relative z-10">{children}</main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t py-10 text-center transition-colors duration-300" style={{ borderColor: 'var(--glass-border)' }}>
-        <p style={{ color: 'var(--text-quaternary)', fontSize: '16px' }}>
+      <footer className="relative z-10 border-t py-6 sm:py-8 text-center transition-colors duration-300" style={{ borderColor: 'var(--glass-border)' }}>
+        <p style={{ color: 'var(--text-quaternary)', fontSize: 'clamp(12px, 2vw, 14px)' }}>
           Sistem Pakar Rekomendasi OS &middot; Berbasis Forward Chaining
         </p>
       </footer>

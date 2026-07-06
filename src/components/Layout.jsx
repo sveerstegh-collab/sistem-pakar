@@ -1,9 +1,11 @@
 ﻿import { Link, useLocation } from 'react-router-dom';
-import { Monitor, Home, ClipboardList, History } from 'lucide-react';
+import { Monitor, Home, ClipboardList, History, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
 import PixelBlast from '../PixelBlast';
 
 export default function Layout({ children }) {
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   const navItems = [
     { to: '/', label: 'Beranda', icon: Home },
@@ -11,14 +13,17 @@ export default function Layout({ children }) {
     { to: '/riwayat', label: 'Riwayat', icon: History },
   ];
 
+  const pixelBlastColor = theme === 'dark' ? '#B497CF' : '#C8A2C8';
+  const pixelBlastOpacity = theme === 'dark' ? 0.9 : 0.5;
+
   return (
     <div className="min-h-screen relative overflow-x-hidden">
-      {/* PixelBlast background - full immersive */}
-      <div className="fixed inset-0 z-0">
+      {/* PixelBlast background - visible in both themes */}
+      <div className="fixed inset-0 z-0" style={{ opacity: pixelBlastOpacity }}>
         <PixelBlast
           variant="square"
           pixelSize={4}
-          color="#B497CF"
+          color={pixelBlastColor}
           patternScale={2}
           patternDensity={1}
           pixelSizeJitter={0}
@@ -36,22 +41,24 @@ export default function Layout({ children }) {
         />
       </div>
 
-      {/* Subtle gradient overlay - lets PixelBlast breathe */}
+      {/* Gradient overlay - theme aware */}
       <div
-        className="fixed inset-0 z-[1] pointer-events-none"
+        className="fixed inset-0 z-[1] pointer-events-none transition-colors duration-300"
         style={{
-          background: 'linear-gradient(180deg, rgba(7,7,13,0.55) 0%, rgba(7,7,13,0.35) 40%, rgba(7,7,13,0.55) 100%)',
+          background: theme === 'dark'
+            ? 'linear-gradient(180deg, rgba(7,7,13,0.55) 0%, rgba(7,7,13,0.35) 40%, rgba(7,7,13,0.55) 100%)'
+            : 'linear-gradient(180deg, rgba(248,247,252,0.3) 0%, rgba(248,247,252,0.1) 40%, rgba(248,247,252,0.3) 100%)',
         }}
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 glass border-b border-white/[0.06]">
+      <nav className="sticky top-0 z-50 glass border-b transition-colors duration-300" style={{ borderColor: 'var(--glass-border)' }}>
         <div className="max-w-5xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-lg bg-purple-500/15 flex items-center justify-center group-hover:bg-purple-500/25 transition-colors">
               <Monitor className="w-4 h-4 text-purple-400" />
             </div>
-            <span className="text-white font-bold text-[15px] tracking-tight">
+            <span className="font-bold text-[15px] tracking-tight" style={{ color: 'var(--text-primary)' }}>
               SistemPakar<span className="text-purple-400">OS</span>
             </span>
           </Link>
@@ -65,14 +72,35 @@ export default function Layout({ children }) {
                   className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 ${
                     active
                       ? 'bg-purple-500/20 text-purple-300 shadow-sm shadow-purple-500/10'
-                      : 'text-white/50 hover:text-white/80 hover:bg-white/[0.04]'
+                      : ''
                   }`}
+                  style={{
+                    color: active ? undefined : 'var(--text-tertiary)',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!active) e.currentTarget.style.color = 'var(--text-secondary)';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!active) e.currentTarget.style.color = 'var(--text-tertiary)';
+                  }}
                 >
                   <item.icon className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">{item.label}</span>
                 </Link>
               );
             })}
+            <button
+              onClick={toggleTheme}
+              className="flex items-center justify-center w-9 h-9 rounded-lg ml-2 transition-all duration-200 glass-light hover:bg-white/[0.08]"
+              title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 text-amber-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-slate-600" />
+              )}
+            </button>
           </div>
         </div>
       </nav>
@@ -81,8 +109,8 @@ export default function Layout({ children }) {
       <main className="relative z-10">{children}</main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/[0.04] py-6 text-center">
-        <p className="text-white/25 text-xs">
+      <footer className="relative z-10 border-t py-6 text-center transition-colors duration-300" style={{ borderColor: 'var(--glass-border)' }}>
+        <p className="text-xs" style={{ color: 'var(--text-quaternary)' }}>
           Sistem Pakar Rekomendasi OS &middot; Berbasis Forward Chaining
         </p>
       </footer>

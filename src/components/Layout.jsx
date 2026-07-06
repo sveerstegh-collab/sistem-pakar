@@ -52,7 +52,7 @@ export default function Layout({ children }) {
       />
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 glass border-b transition-colors duration-300" style={{ borderColor: 'var(--glass-border)' }}>
+      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b transition-colors duration-300" style={{ borderColor: 'var(--glass-border)' }}>
         <div className="max-w-5xl mx-auto px-3 sm:px-8 h-14 sm:h-16 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
             <div className="w-8 sm:w-9 h-8 sm:h-9 rounded-lg bg-purple-500/15 flex items-center justify-center group-hover:bg-purple-500/25 transition-colors">
@@ -111,7 +111,7 @@ export default function Layout({ children }) {
       </nav>
 
       {/* Page content */}
-      <main className="relative z-10">{children}</main>
+      <main className="relative z-10 pt-14 sm:pt-16">{children}</main>
 
       {/* Footer */}
       <footer className="relative z-10 border-t py-6 sm:py-8 text-center transition-colors duration-300" style={{ borderColor: 'var(--glass-border)' }}>

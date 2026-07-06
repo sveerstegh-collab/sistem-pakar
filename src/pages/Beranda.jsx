@@ -1,8 +1,10 @@
-﻿import { Link } from 'react-router-dom';
-import { ArrowRight, Cpu, Shield, Zap, Users, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Cpu, Shield, Zap, Users, Sparkles, ChevronDown } from 'lucide-react';
 
 export default function Beranda() {
   const stats = JSON.parse(localStorage.getItem('konsultasi_history') || '[]');
+  const [openFaqIndex, setOpenFaqIndex] = useState(null);
 
   const features = [
     {
@@ -33,40 +35,73 @@ export default function Beranda() {
     { num: '03', title: 'Dapatkan Hasil', desc: 'Sistem merekomendasikan OS terbaik beserta alasannya.' },
   ];
 
+  const faqs = [
+    {
+      question: 'Apa itu Sistem Pakar?',
+      answer: 'Sistem pakar adalah program komputer yang dirancang untuk meniru keahlian seorang ahli di bidang tertentu. Dalam hal ini, sistem kami menggunakan pengetahuan dari para ahli teknologi untuk merekomendasikan sistem operasi yang paling sesuai dengan kebutuhan Anda.',
+    },
+    {
+      question: 'Bagaimana cara sistem menentukan OS terbaik?',
+      answer: 'Sistem kami menggunakan metode forward chaining, yang bekerja dengan menganalisis jawaban Anda tentang spesifikasi laptop (RAM, storage, processor) dan kebutuhan Anda (jurusan, prioritas, kemampuan). Berdasarkan aturan-aturan yang telah didefinisikan oleh para pakar, sistem memberikan skor kepercayaan untuk setiap OS yang tersedia.',
+    },
+    {
+      question: 'Berapa lama proses konsultasi?',
+      answer: 'Proses konsultasi sangat cepat! Anda hanya perlu menjawab 8 pertanyaan sederhana tentang spesifikasi laptop dan kebutuhan Anda. Biasanya hanya membutuhkan waktu 2-3 menit untuk menyelesaikan seluruh proses.',
+    },
+    {
+      question: 'OS apa saja yang bisa direkomendasikan?',
+      answer: 'Sistem kami dapat merekomendasikan 10 sistem operasi, termasuk: Windows 11, Windows 10, Ubuntu, Linux Mint, Lubuntu, Xubuntu, ChromeOS Flex, Fedora, Pop!_OS, dan Zorin OS. Setiap OS dipilih berdasarkan kesesuaiannya dengan kriteria dan kebutuhan Anda.',
+    },
+    {
+      question: 'Apakah hasil rekomendasi selalu akurat?',
+      answer: 'Rekomendasi kami didasarkan pada pengetahuan dari para ahli dan aturan-aturan yang telah teruji. Namun, keakuratan tergantung pada ketepatan informasi yang Anda berikan. Kami menyarankan untuk memilih opsi yang paling sesuai dengan situasi Anda untuk hasil terbaik.',
+    },
+    {
+      question: 'Dapatkah saya melihat riwayat konsultasi saya?',
+      answer: 'Ya! Semua hasil konsultasi Anda disimpan secara otomatis di perangkat Anda. Anda dapat melihatnya di halaman "Riwayat" dan mengakses kembali hasil konsultasi sebelumnya kapan saja. Data disimpan secara lokal di browser Anda.',
+    },
+  ];
+
+  const toggleFaq = (index) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
   return (
     <div>
       {/* Hero */}
-      <section className="flex flex-col items-center justify-center text-center px-5 pt-24 pb-20 sm:pt-32 sm:pb-28 min-h-[85vh]">
+      <section className="flex flex-col items-center justify-center text-center px-5 pt-42 pb-35 sm:pt-56 sm:pb-49 min-h-[85vh]">
         <div className="animate-fade-up">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full glass-light text-purple-300 text-xs font-medium tracking-wide">
-            <Sparkles className="w-3 h-3" />
+          <div className="inline-flex items-center gap-3.5 px-7 py-3 mb-14 rounded-full glass-light text-purple-300 font-medium tracking-wide" style={{ fontSize: '14px' }}>
+            <Sparkles className="w-5 h-5" />
             Sistem Pakar Berbasis Web
           </div>
         </div>
 
-        <h1 className="animate-fade-up delay-100 text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold text-white leading-[1.15] max-w-2xl tracking-tight">
+        <h1 className="animate-fade-up delay-100 text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.15] max-w-2xl tracking-tight" style={{ color: 'var(--text-primary)', fontSize: '4.375rem' }}>
           Temukan OS Terbaik
           <br />
           <span className="shimmer-text">untuk Laptop Anda</span>
         </h1>
 
-        <p className="animate-fade-up delay-200 mt-6 text-[15px] sm:text-base text-white/50 max-w-lg leading-relaxed">
+        <p className="animate-fade-up delay-200 mt-10 text-lg sm:text-xl max-w-lg leading-relaxed" style={{ color: 'var(--text-tertiary)', fontSize: '22px' }}>
           Jawab 8 pertanyaan sederhana dan biarkan mesin inferensi kami
           merekomendasikan sistem operasi yang paling sesuai.
         </p>
 
-        <div className="animate-fade-up delay-300 mt-10 flex flex-col sm:flex-row items-center gap-3">
+        <div className="animate-fade-up delay-300 mt-17 flex flex-col sm:flex-row items-center gap-5">
           <Link
             to="/konsultasi"
-            className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-xl transition-all duration-300 shadow-xl shadow-purple-600/20 hover:shadow-purple-500/30 hover:scale-[1.02] active:scale-[0.98]"
+            className="group inline-flex items-center gap-4 px-14 py-6 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-xl transition-all duration-300 shadow-xl shadow-purple-600/20 hover:shadow-purple-500/30 hover:scale-[1.02] active:scale-[0.98]"
+            style={{ fontSize: '18px' }}
           >
             Mulai Konsultasi
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
           </Link>
           {stats.length > 0 && (
             <Link
               to="/riwayat"
-              className="inline-flex items-center gap-2 px-5 py-3 glass-light rounded-xl text-white/60 text-sm font-medium hover:text-white/80 transition-colors"
+              className="inline-flex items-center gap-3 px-9 py-5 glass-light rounded-xl font-medium transition-colors"
+              style={{ color: 'var(--text-tertiary)', fontSize: '17px' }}
             >
               Lihat Riwayat ({stats.length})
             </Link>
@@ -74,45 +109,86 @@ export default function Beranda() {
         </div>
 
         {stats.length > 0 && (
-          <p className="animate-fade-in delay-500 mt-6 text-white/25 text-xs">
+          <p className="animate-fade-in delay-500 mt-10" style={{ color: 'var(--text-quaternary)', fontSize: '14px' }}>
             {stats.length} konsultasi telah dilakukan
           </p>
         )}
       </section>
 
       {/* How it works */}
-      <section className="max-w-4xl mx-auto px-5 sm:px-8 pb-20">
-        <h2 className="text-center text-white/30 text-xs font-semibold uppercase tracking-widest mb-10">
+      <section className="max-w-4xl mx-auto px-5 sm:px-8 pb-35">
+        <h2 className="text-center font-semibold uppercase tracking-widest mb-17" style={{ color: 'var(--text-quaternary)', fontSize: '17.5px' }}>
           Cara Kerja
         </h2>
-        <div className="grid w-full max-w-4xl mx-auto sm:grid-cols-3 gap-5">
+        <div className="grid w-full max-w-4xl mx-auto sm:grid-cols-3 gap-9">
           {steps.map((s, i) => (
-            <div key={i} className="glass rounded-2xl p-6 text-center animate-fade-up" style={{ animationDelay: `${i * 0.1 + 0.1}s` }}>
-              <span className="text-purple-500/40 text-4xl font-black">{s.num}</span>
-              <h3 className="text-white font-semibold text-[15px] mt-3 mb-1.5">{s.title}</h3>
-              <p className="text-white/40 text-[13px] leading-relaxed">{s.desc}</p>
+            <div key={i} className="glass rounded-2xl p-10 text-center animate-fade-up" style={{ animationDelay: `${i * 0.1 + 0.1}s` }}>
+              <span className="text-purple-500/40 font-black" style={{ fontSize: '70px' }}>{s.num}</span>
+              <h3 className="font-semibold mt-5 mb-2.5" style={{ color: 'var(--text-primary)', fontSize: '22px' }}>{s.title}</h3>
+              <p className="leading-relaxed" style={{ color: 'var(--text-tertiary)', fontSize: '19px' }}>{s.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Features */}
-      <section className="max-w-4xl mx-auto px-5 sm:px-8 pb-24">
-        <h2 className="text-center text-white/30 text-xs font-semibold uppercase tracking-widest mb-10">
+      <section className="max-w-4xl mx-auto px-5 sm:px-8 pb-42">
+        <h2 className="text-center font-semibold uppercase tracking-widest mb-17" style={{ color: 'var(--text-quaternary)', fontSize: '17.5px' }}>
           Fitur Utama
         </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-7">
           {features.map((f, i) => (
             <div
               key={i}
-              className="glass-light rounded-xl p-5 text-center hover:bg-white/[0.06] transition-colors duration-300 group animate-fade-up"
+              className="glass-light rounded-xl p-9 text-center hover:bg-white/[0.06] transition-colors duration-300 group animate-fade-up"
               style={{ animationDelay: `${i * 0.08 + 0.1}s` }}
             >
-              <div className="w-9 h-9 rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 flex items-center justify-center mx-auto mb-3 transition-colors">
-                <f.icon className="w-4 h-4 text-purple-400" />
+              <div className="w-14 h-14 rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 flex items-center justify-center mx-auto mb-5 transition-colors">
+                <f.icon className="w-6 h-6 text-purple-400" />
               </div>
-              <h3 className="text-white font-semibold text-[13px] mb-1">{f.title}</h3>
-              <p className="text-white/40 text-xs leading-relaxed">{f.desc}</p>
+              <h3 className="font-semibold mb-2" style={{ color: 'var(--text-primary)', fontSize: '19px' }}>{f.title}</h3>
+              <p className="leading-relaxed" style={{ color: 'var(--text-tertiary)', fontSize: '16px' }}>{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="max-w-3xl mx-auto px-5 sm:px-8 pb-42">
+        <h2 className="text-center font-semibold uppercase tracking-widest mb-21" style={{ color: 'var(--text-quaternary)', fontSize: '17.5px' }}>
+          Pertanyaan Umum
+        </h2>
+        <div className="space-y-7">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className="glass rounded-xl overflow-hidden animate-fade-up transition-all duration-300"
+              style={{ animationDelay: `${index * 0.06}s` }}
+            >
+              <button
+                onClick={() => toggleFaq(index)}
+                className="w-full px-9 py-6 flex items-center justify-between transition-colors"
+                style={{
+                  backgroundColor: openFaqIndex === index ? 'var(--glass-accent-bg)' : 'transparent',
+                }}
+              >
+                <h3 className="font-semibold text-left" style={{ color: 'var(--text-primary)', fontSize: '22px' }}>
+                  {faq.question}
+                </h3>
+                <ChevronDown
+                  className="w-7 h-7 text-purple-400 transition-transform duration-300 shrink-0"
+                  style={{
+                    transform: openFaqIndex === index ? 'rotate(180deg)' : 'rotate(0deg)',
+                  }}
+                />
+              </button>
+              {openFaqIndex === index && (
+                <div className="px-9 pb-7 animate-fade-in border-t" style={{ borderColor: 'var(--glass-border)' }}>
+                  <p className="leading-relaxed" style={{ color: 'var(--text-secondary)', fontSize: '19px' }}>
+                    {faq.answer}
+                  </p>
+                </div>
+              )}
             </div>
           ))}
         </div>
